@@ -52,8 +52,11 @@ public class ConnectionDBSqlite implements ConnectionDB{
 	}
 	
 	public static void main(String[] args) {
-		ConnectionDBSqlite ConnectionDBSqlite = new ConnectionDBSqlite();
-		System.out.println(ConnectionDBSqlite.getConnection());
+		ConnectionDBSqlite connectionDBSqlite1 = new ConnectionDBSqlite();
+		ConnectionDBSqlite connectionDBSqlite2 = new ConnectionDBSqlite();
+		System.out.println(connectionDBSqlite1.getConnection());
+		System.out.println(connectionDBSqlite2.getConnection());
+
 	}
 
 }
