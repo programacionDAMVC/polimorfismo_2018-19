@@ -18,7 +18,8 @@ public class Student extends Person{
 
 	@Override
 	public String toString() {
-		return String.format("Student [course=%s] %s", course);
+		return String.format("Student [course=%s], %S", course,
+				super.toString());
 	}
 	
 }

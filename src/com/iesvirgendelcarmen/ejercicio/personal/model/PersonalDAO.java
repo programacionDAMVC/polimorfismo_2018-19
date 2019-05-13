@@ -8,9 +8,10 @@ public interface PersonalDAO {
 	List<PrincipalTeacher> getPrincipalTeachers();
 	List<SubstituteTeacher> getSubstituteTeachers();
 	boolean deletePerson(Person person);
-	Student getStudentsByEmail(String email);
-	PrincipalTeacher getPrincipalTeachersByEmail(String email);
-	SubstituteTeacher getSubstituteTeachersByEmail(String email);
+//	Student getStudentsByEmail(String email);
+//	PrincipalTeacher getPrincipalTeachersByEmail(String email);
+//	SubstituteTeacher getSubstituteTeachersByEmail(String email);
+	Person getPersonByEmail(Person person);
 	List<Person> getDeletePerson();
 	
 }
