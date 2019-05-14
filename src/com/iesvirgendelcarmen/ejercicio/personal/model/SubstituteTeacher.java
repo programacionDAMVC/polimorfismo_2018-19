@@ -19,7 +19,7 @@ public class SubstituteTeacher extends Teacher{
 
 	@Override
 	public String toString() {
-		return String.format("SubstituteTeacher [career=%s]", career);
+		return String.format("SubstituteTeacher [career=%s], %S", career, super.toString());
 	}
 	
 }
