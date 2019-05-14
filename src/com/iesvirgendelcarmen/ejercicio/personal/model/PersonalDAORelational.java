@@ -17,6 +17,11 @@ public class PersonalDAORelational implements PersonalDAO {
 
 	public PersonalDAORelational() {
 		fillStudentList();
+		fillSubstituteTeacher();
+	}
+	private void fillSubstituteTeacher() {
+		// TODO Auto-generated method stub
+		
 	}
 	private void fillStudentList() {
 		// conectarme a la BD
@@ -63,7 +68,7 @@ public class PersonalDAORelational implements PersonalDAO {
 	@Override
 	public List<SubstituteTeacher> getSubstituteTeachers() {
 		// TODO Auto-generated method stub
-		return null;
+		return substituteTeacherList;
 	}
 
 	@Override
@@ -97,8 +102,31 @@ public class PersonalDAORelational implements PersonalDAO {
 	@Override
 	public Person getPersonByEmail(Person person) {
 		String sql = null;
-		if (person instanceof Student)
+		ConnectionDBSqlite connectionDBSqlite = new ConnectionDBSqlite();
+		Connection connection = connectionDBSqlite.getConnection();
+		if (person instanceof Student) {
 			sql = "SELECT * FROM student_view WHERE emailPerson = ?;";
+			try (PreparedStatement psStatement = connection.prepareStatement(sql);){
+				psStatement.setString(1, person.getEmail());
+				ResultSet rsSet = psStatement.executeQuery();
+				//firstName, lastName , emailPerson , gender , course
+				while (rsSet.next()) {
+					String firstName = rsSet.getString("firstName");
+					String lastName  = rsSet.getString("lastName");
+					String email     = rsSet.getString("emailPerson");
+					String sGender   = rsSet.getString("gender");
+					Gender gender = Gender.MALE;
+					if (sGender.equals("Female")){
+						gender = Gender.FEMALE;
+					}
+					String course  =rsSet.getString("course");
+					return new Student(firstName, lastName, email, gender, course);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		else if (person instanceof PrincipalTeacher)
 			sql = "SELECT * FROM principalTeacher_view WHERE emailPerson = ?;";
 		else
@@ -124,6 +152,10 @@ public class PersonalDAORelational implements PersonalDAO {
 		Person p = new Student("", "", "sthemanndt@indiegogo.com",null,"");
 		System.out.println(pDao.deletePerson(p));
 		pDao.getStudents().forEach(System.out::println);
+		Person p1 = new Student("", "", "THESELWOODDS@VIRGINIA.EDU",null,"");
+		System.out.println("Buscando persona:");
+		System.out.println(pDao.getPersonByEmail(p1));
+		
 	}
 	
 
