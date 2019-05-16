@@ -24,7 +24,7 @@ elaurenza@mapquest.com,2005/01/11
 
 	@Override
 	public String toString() {
-		return String.format("PrincipalTeacher [contract=%s]", contract);
+		return String.format("PrincipalTeacher [contract=%s], %S", contract, super.toString());
 	}
 	
 }

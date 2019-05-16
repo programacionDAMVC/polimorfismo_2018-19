@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,34 @@ public class PersonalDAORelational implements PersonalDAO {
 	public PersonalDAORelational() {
 		fillStudentList();
 		fillSubstituteTeacher();
+		fillPrincipalTeacher();
+	}
+	private void fillPrincipalTeacher() {
+		ConnectionDBSqlite connectionDBSqlite = new ConnectionDBSqlite();
+		Connection connection = connectionDBSqlite.getConnection();
+		String sql = "SELECT * FROM principalTeacher_view;";
+		try (Statement statement = connection.createStatement();){
+			ResultSet rsSet = statement.executeQuery(sql);
+			while(rsSet.next()) {
+				String firstName = rsSet.getString("firstName");
+				String lastName  = rsSet.getString("lastName");
+				String email     = rsSet.getString("emailPerson");
+				String sGender   = rsSet.getString("gender");
+				Gender gender = Gender.MALE;
+				if (sGender.equals("Female")){
+					gender = Gender.FEMALE;
+				}
+				String subject  = rsSet.getString("subject");
+				String sContract    = rsSet.getString("contract");
+				LocalDate lContract = LocalDate.parse(sContract, FORMATTER_DATE);
+				principalTeacherList.add(
+						new PrincipalTeacher(
+								firstName, lastName, email, gender, subject, lContract));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	private void fillSubstituteTeacher() {
 		ConnectionDBSqlite connectionDBSqlite = new ConnectionDBSqlite();
@@ -89,7 +118,7 @@ public class PersonalDAORelational implements PersonalDAO {
 	@Override
 	public List<PrincipalTeacher> getPrincipalTeachers() {
 		// TODO Auto-generated method stub
-		return null;
+		return principalTeacherList;
 	}
 
 	@Override
@@ -113,8 +142,7 @@ public class PersonalDAORelational implements PersonalDAO {
 				if (person instanceof Student)
 					studentList.remove(person);
 				else if (person instanceof PrincipalTeacher)
-					//borramos de la lista profesores titulares
-					System.out.println();
+					principalTeacherList.remove(person);
 				else
 					substituteTeacherList.remove(person);
 		} catch (SQLException e) {
@@ -153,9 +181,12 @@ public class PersonalDAORelational implements PersonalDAO {
 				e.printStackTrace();
 			}
 		}
-		else if (person instanceof PrincipalTeacher)
-			sql = "SELECT * FROM principalTeacher_view WHERE emailPerson = ?;";
-		
+		else if (person instanceof PrincipalTeacher) {
+			//sql = "SELECT * FROM principalTeacher_view WHERE emailPerson = ?;";
+			int index = principalTeacherList.indexOf(person);
+			if (index != -1)
+				return principalTeacherList.get(index);
+		}
 		else {
 			//localizar el índice del objeto person con el método indexOf, devuelve index
 			int index = substituteTeacherList.indexOf(person);
@@ -172,8 +203,8 @@ public class PersonalDAORelational implements PersonalDAO {
 	
 
 	@Override
-	public Set<Person> getDeletePerson() {
-		Set<DeletePerson> deletePersonSet = new TreeSet<>();
+	public List<DeletePerson> getDeletePerson() {
+		List<DeletePerson> listDeletePerson = new ArrayList<>();
 		ConnectionDBSqlite connectionDBSqlite = new ConnectionDBSqlite();
 		Connection connection = connectionDBSqlite.getConnection();
 		String sql = "SELECT *  FROM record ;";
@@ -189,15 +220,16 @@ public class PersonalDAORelational implements PersonalDAO {
 					gender = Gender.FEMALE;
 				}
 				String sDate = rsSet.getString("date");
-				LocalDateTime lDate = LocalDateTime.parse(sDate, FORMATTER2);
-				System.out.println(lDate);
+				LocalDateTime lDate = LocalDateTime.parse(sDate, FORMATTER_DATETIME);
+				listDeletePerson.add(
+						new DeletePerson(firstName, lastName, email, gender, lDate));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return null;
+		connectionDBSqlite.closeConnection();
+		return listDeletePerson;
 	}
 
 
@@ -216,7 +248,7 @@ public class PersonalDAORelational implements PersonalDAO {
 //		Person p1 = new SubstituteTeacher("", "", "JMEGAINEY7@GOOGLE.IT".toLowerCase(), null, "", 0);
 //		System.out.println();
 //		System.out.println(pDao.getPersonByEmail(p1));
-		pDao.getDeletePerson();
+		pDao.getPrincipalTeachers().forEach(System.out::println);
 		
 	}
 	
