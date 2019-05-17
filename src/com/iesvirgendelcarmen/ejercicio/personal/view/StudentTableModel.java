@@ -1,12 +1,21 @@
-package com.iesvirgendelcarmen.ejercicio.personal.model;
+package com.iesvirgendelcarmen.ejercicio.personal.view;
 
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import com.iesvirgendelcarmen.ejercicio.personal.model.PersonalDAO;
+import com.iesvirgendelcarmen.ejercicio.personal.model.Student;
+
 public class StudentTableModel extends AbstractTableModel{
-	private PersonalDAO pDao = new PersonalDAORelational();
-	private List<Student> listStudent = pDao.getStudents();
+	private PersonalDAO pDao;
+	private List<Student> listStudent;
+	
+	
+	public StudentTableModel(PersonalDAO pDao) {
+		this.pDao = pDao;
+		listStudent = pDao.getStudents();
+	}
 	private String[] columName = {"First Name", "Last Name", "email", "Gender", "Course"};
 	@Override
 	public int getColumnCount() {
