@@ -42,7 +42,7 @@ public class View {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 600, 600);
+		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panelTable = new JPanel();
@@ -69,13 +69,26 @@ public class View {
 			tableModel = new DeletePersonTableModel(controller.getListPeople("deletePerson"));
 			jTable.setModel(tableModel);
 		});
-		JButton buttonListStuden = new JButton("List Students");
-		buttonListStuden.addActionListener(e -> {
+		JButton buttonListStudent = new JButton("List Students");
+		buttonListStudent.addActionListener(e -> {
 			tableModel = new StudentTableModel(controller.getListPeople("student"));
 			jTable.setModel(tableModel);
 		});
+		JButton buttonPrincipalTeacher = new JButton("List Principal Teacher");
+		buttonPrincipalTeacher.addActionListener(e -> {
+			tableModel = new TeacherTableModel(controller.getListPeople("principalTeacher"));
+			jTable.setModel(tableModel);
+		});
+		JButton buttonSubstituteTeacher = new JButton("List Substitute Teacher");
+		buttonSubstituteTeacher.addActionListener(e -> {
+			tableModel = new TeacherTableModel(controller.getListPeople("substituteTeacher"));
+			jTable.setModel(tableModel);
+		});
 		panelButton.add(buttonShowDeletePerson);
-		panelButton.add(buttonListStuden);
+		panelButton.add(buttonListStudent);
+		panelButton.add(buttonPrincipalTeacher);
+		panelButton.add(buttonSubstituteTeacher);
+
 
 		JPanel panelForm = new JPanel();
 		frame.getContentPane().add(panelForm, BorderLayout.WEST);

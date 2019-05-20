@@ -16,8 +16,8 @@ import com.iesvirgendelcarmen.ejercicio.personal.model.repository.ConnectionDBSq
 
 public class PersonalDAORelational implements PersonalDAO {
 	private List<Person> studentList = new ArrayList<>();
-	private List<PrincipalTeacher> principalTeacherList = new ArrayList<>();
-	private List<SubstituteTeacher> substituteTeacherList = new ArrayList<>();
+	private List<Person> principalTeacherList = new ArrayList<>();
+	private List<Person> substituteTeacherList = new ArrayList<>();
 
 	public PersonalDAORelational() {
 		fillStudentList();
@@ -115,17 +115,17 @@ public class PersonalDAORelational implements PersonalDAO {
 //		return studentList;
 //	}
 
-	@Override
-	public List<PrincipalTeacher> getPrincipalTeachers() {
-		// TODO Auto-generated method stub
-		return principalTeacherList;
-	}
-
-	@Override
-	public List<SubstituteTeacher> getSubstituteTeachers() {
-		// TODO Auto-generated method stub
-		return substituteTeacherList;
-	}
+//	@Override
+//	public List<PrincipalTeacher> getPrincipalTeachers() {
+//		// TODO Auto-generated method stub
+//		return principalTeacherList;
+//	}
+//
+//	@Override
+//	public List<SubstituteTeacher> getSubstituteTeachers() {
+//		// TODO Auto-generated method stub
+//		return substituteTeacherList;
+//	}
 
 	@Override
 	public boolean deletePerson(Person person) {
@@ -236,8 +236,10 @@ public class PersonalDAORelational implements PersonalDAO {
 		switch (type) {
 		case "deletePerson":
 			return getDeletePerson();
-			
-
+		case "principalTeacher":
+			return principalTeacherList; 
+		case "substituteTeacher":
+			return substituteTeacherList;
 		default:
 			return studentList;
 		}
@@ -258,7 +260,7 @@ public class PersonalDAORelational implements PersonalDAO {
 //		Person p1 = new SubstituteTeacher("", "", "JMEGAINEY7@GOOGLE.IT".toLowerCase(), null, "", 0);
 //		System.out.println();
 //		System.out.println(pDao.getPersonByEmail(p1));
-		pDao.getPrincipalTeachers().forEach(System.out::println);
+//		pDao.getPrincipalTeachers().forEach(System.out::println);
 		
 	}
 	

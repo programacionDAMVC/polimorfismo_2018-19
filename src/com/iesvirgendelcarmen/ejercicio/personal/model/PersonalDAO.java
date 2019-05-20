@@ -12,8 +12,8 @@ public interface PersonalDAO {
 	DateTimeFormatter FORMATTER_DATETIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 //	List<Student> getStudents();
-	List<PrincipalTeacher> getPrincipalTeachers();
-	List<SubstituteTeacher> getSubstituteTeachers();
+//	List<PrincipalTeacher> getPrincipalTeachers();
+//	List<SubstituteTeacher> getSubstituteTeachers();
 	boolean deletePerson(Person person);
 //	Student getStudentsByEmail(String email);
 //	PrincipalTeacher getPrincipalTeachersByEmail(String email);

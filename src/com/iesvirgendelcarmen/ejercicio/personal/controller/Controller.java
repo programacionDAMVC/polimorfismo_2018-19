@@ -30,10 +30,14 @@ public class Controller {
 		switch (type) {
 		case "deletePerson":
 			return pdDao.getListPeople("deletePerson");
-			
-
-		default:
+		case "principalTeacher":
+			return pdDao.getListPeople("principalTeacher");
+		case "substituteTeacher":
+			return pdDao.getListPeople("substituteTeacher");
+		case "student":
 			return pdDao.getListPeople("student");
+		default:
+			return null;
 		}
 	}
 }
