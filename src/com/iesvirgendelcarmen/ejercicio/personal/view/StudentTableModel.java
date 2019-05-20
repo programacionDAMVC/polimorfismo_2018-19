@@ -4,17 +4,18 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import com.iesvirgendelcarmen.ejercicio.personal.model.Person;
 import com.iesvirgendelcarmen.ejercicio.personal.model.PersonalDAO;
 import com.iesvirgendelcarmen.ejercicio.personal.model.Student;
 
 public class StudentTableModel extends AbstractTableModel{
-	private PersonalDAO pDao;
-	private List<Student> listStudent;
+	//private PersonalDAO pDao;
+	private List<Person> listStudent;
 	
 	
-	public StudentTableModel(PersonalDAO pDao) {
-		this.pDao = pDao;
-		listStudent = pDao.getStudents();
+	public StudentTableModel(List<Person> listStudent) {
+		//this.pDao = pDao;
+		this.listStudent = listStudent;
 	}
 	private String[] columName = {"First Name", "Last Name", "email", "Gender", "Course"};
 	@Override
@@ -41,7 +42,7 @@ public class StudentTableModel extends AbstractTableModel{
 		case 3:
 			return listStudent.get(arg0).getGender().toString();
 		case 4:
-			return listStudent.get(arg0).getCourse();
+			return ((Student) listStudent.get(arg0)).getCourse();
 		default:
 			break;
 		}

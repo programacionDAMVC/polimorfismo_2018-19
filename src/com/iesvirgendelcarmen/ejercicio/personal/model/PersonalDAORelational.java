@@ -15,7 +15,7 @@ import java.util.TreeSet;
 import com.iesvirgendelcarmen.ejercicio.personal.model.repository.ConnectionDBSqlite;
 
 public class PersonalDAORelational implements PersonalDAO {
-	private List<Student> studentList = new ArrayList<>();
+	private List<Person> studentList = new ArrayList<>();
 	private List<PrincipalTeacher> principalTeacherList = new ArrayList<>();
 	private List<SubstituteTeacher> substituteTeacherList = new ArrayList<>();
 
@@ -109,11 +109,11 @@ public class PersonalDAORelational implements PersonalDAO {
 
 
 	}
-	@Override
-	public List<Student> getStudents() {
-		// TODO Auto-generated method stub
-		return studentList;
-	}
+//	@Override
+//	public List<Student> getStudents() {
+//		// TODO Auto-generated method stub
+//		return studentList;
+//	}
 
 	@Override
 	public List<PrincipalTeacher> getPrincipalTeachers() {
@@ -202,9 +202,9 @@ public class PersonalDAORelational implements PersonalDAO {
 	
 	
 
-	@Override
-	public List<DeletePerson> getDeletePerson() {
-		List<DeletePerson> listDeletePerson = new ArrayList<>();
+//	@Override
+	private List<Person> getDeletePerson() {
+		List<Person> listDeletePerson = new ArrayList<>();
 		ConnectionDBSqlite connectionDBSqlite = new ConnectionDBSqlite();
 		Connection connection = connectionDBSqlite.getConnection();
 		String sql = "SELECT *  FROM record ;";
@@ -231,7 +231,17 @@ public class PersonalDAORelational implements PersonalDAO {
 		connectionDBSqlite.closeConnection();
 		return listDeletePerson;
 	}
+	@Override
+	public List<Person> getListPeople(String type) {
+		switch (type) {
+		case "deletePerson":
+			return getDeletePerson();
+			
 
+		default:
+			return studentList;
+		}
+	}
 
 	public static void main(String[] args) {
 		PersonalDAO pDao = new PersonalDAORelational();

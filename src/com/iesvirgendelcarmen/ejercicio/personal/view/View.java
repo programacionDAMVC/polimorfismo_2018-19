@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
+import com.iesvirgendelcarmen.ejercicio.personal.controller.Controller;
 import com.iesvirgendelcarmen.ejercicio.personal.model.PersonalDAO;
 import com.iesvirgendelcarmen.ejercicio.personal.model.PersonalDAORelational;
 
@@ -20,16 +21,18 @@ public class View {
 
 	private JFrame frame;
 	private TableModel tableModel;
-	private PersonalDAO pDao;
+	//private PersonalDAO pDao;
 	private JTable jTable;
 	private JScrollPane jScrollPane;
+	private Controller controller;
 
 	/**
 	 * Create the application.
 	 */
 	public View() {
-		pDao = new PersonalDAORelational();
-		tableModel = new StudentTableModel(pDao);
+		controller = new Controller(this);
+	//	pDao = new PersonalDAORelational();
+		tableModel = new StudentTableModel(controller.getListPeople("student"));
 		//tableModel = new DeletePersonTableModel(pDao);
 		initialize();
 	}
@@ -63,12 +66,17 @@ public class View {
 //			}
 //		});
 		buttonShowDeletePerson.addActionListener(e -> {
-			tableModel = new DeletePersonTableModel(pDao);
+			tableModel = new DeletePersonTableModel(controller.getListPeople("deletePerson"));
 			jTable.setModel(tableModel);
 		});
-		
+		JButton buttonListStuden = new JButton("List Students");
+		buttonListStuden.addActionListener(e -> {
+			tableModel = new StudentTableModel(controller.getListPeople("student"));
+			jTable.setModel(tableModel);
+		});
 		panelButton.add(buttonShowDeletePerson);
-		
+		panelButton.add(buttonListStuden);
+
 		JPanel panelForm = new JPanel();
 		frame.getContentPane().add(panelForm, BorderLayout.WEST);
 		

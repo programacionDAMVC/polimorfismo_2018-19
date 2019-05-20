@@ -11,7 +11,7 @@ public interface PersonalDAO {
 	//2019-05-13 09:12:03
 	DateTimeFormatter FORMATTER_DATETIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-	List<Student> getStudents();
+//	List<Student> getStudents();
 	List<PrincipalTeacher> getPrincipalTeachers();
 	List<SubstituteTeacher> getSubstituteTeachers();
 	boolean deletePerson(Person person);
@@ -19,6 +19,7 @@ public interface PersonalDAO {
 //	PrincipalTeacher getPrincipalTeachersByEmail(String email);
 //	SubstituteTeacher getSubstituteTeachersByEmail(String email);
 	Person getPersonByEmail(Person person);
-	List<DeletePerson> getDeletePerson();
+//	List<DeletePerson> getDeletePerson();
+	List<Person> getListPeople(String type);
 	
 }

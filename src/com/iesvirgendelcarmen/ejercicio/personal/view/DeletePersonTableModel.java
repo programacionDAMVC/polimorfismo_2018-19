@@ -5,15 +5,15 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import com.iesvirgendelcarmen.ejercicio.personal.model.DeletePerson;
-import com.iesvirgendelcarmen.ejercicio.personal.model.PersonalDAO;
+import com.iesvirgendelcarmen.ejercicio.personal.model.Person;
 
 public class DeletePersonTableModel extends AbstractTableModel{
-	private PersonalDAO pDao;
-	private List<DeletePerson> listDeletePerson;
+	//private PersonalDAO pDao;
+	private List<Person> listDeletePerson;
 	
-	public DeletePersonTableModel(PersonalDAO pDao) {
-		this.pDao = pDao;
-		listDeletePerson = pDao.getDeletePerson();
+	public DeletePersonTableModel(List<Person> listDeletePerson) {
+	//	this.pDao = pDao;
+		this.listDeletePerson = listDeletePerson;
 	}
 	//= pDao.getDeletePerson();
 	private String[] columName = {"First Name", "Last Name", "email", "Gender", "Date"};
@@ -41,7 +41,7 @@ public class DeletePersonTableModel extends AbstractTableModel{
 		case 3:
 			return listDeletePerson.get(arg0).getGender().toString();
 		case 4:
-			return listDeletePerson.get(arg0).getDeleteDate();
+			return ((DeletePerson) listDeletePerson.get(arg0)).getDeleteDate();
 		default:
 			break;
 		}
