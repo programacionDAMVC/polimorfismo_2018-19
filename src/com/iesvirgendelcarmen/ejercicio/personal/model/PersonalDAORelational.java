@@ -128,7 +128,15 @@ public class PersonalDAORelational implements PersonalDAO {
 //	}
 
 	@Override
-	public boolean deletePerson(Person person) {
+	public	boolean deletePeople(List<Person> people) {
+		System.out.println(people);
+		boolean result = true;
+		for (Person person : people) {
+			result = result && deletePerson(person);
+		}
+		return result;
+	}
+	private boolean deletePerson(Person person) {
 		int rows = 0;
 		ConnectionDBSqlite connectionDBSqlite = new ConnectionDBSqlite();
 		Connection connection = connectionDBSqlite.getConnection();

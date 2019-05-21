@@ -53,5 +53,12 @@ public class StudentTableModel extends AbstractTableModel{
 		// TODO Auto-generated method stub
 		return columName[column];
 	}
+	
+	public void removeRow() {
+		//System.out.println("Fila a borrar " +row);
+      //  listStudent.remove(row);
+      //  fireTableRowsDeleted(row, row);
+		fireTableDataChanged();
+    }
 
 }

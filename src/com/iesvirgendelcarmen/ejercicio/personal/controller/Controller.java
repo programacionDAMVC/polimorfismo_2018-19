@@ -1,5 +1,6 @@
 package com.iesvirgendelcarmen.ejercicio.personal.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.iesvirgendelcarmen.ejercicio.personal.model.DeletePerson;
@@ -39,5 +40,14 @@ public class Controller {
 		default:
 			return null;
 		}
+	}
+	
+	public List<Person>  deletePeople(List<String> listEmail) {
+		List<Person> listPerson = new ArrayList<>();
+		for (String email : listEmail) {
+			listPerson.add(new Student(null, null, email, null, null));
+		}
+		pdDao.deletePeople(listPerson);
+		return listPerson;
 	}
 }
